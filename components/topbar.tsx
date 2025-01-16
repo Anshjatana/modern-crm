@@ -1,23 +1,16 @@
 "use client";
 
-import { ArrowLeft } from "lucide-react";
+import React, { useState } from "react";
+import { AvatarGroup, IconButton, Menu, MenuItem, Switch, TextField } from "@mui/material";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useState } from "react";
+import { ArrowLeft } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export function Topbar() {
   const [fileName, setFileName] = useState("Name of the file");
   const [isEditing, setIsEditing] = useState(false);
   const [autoSave, setAutoSave] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleFileNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFileName(e.target.value);
@@ -29,69 +22,78 @@ export function Topbar() {
 
   const handleAutoSaveToggle = () => {
     setAutoSave(!autoSave);
-    // Here, you can also implement auto-save logic (e.g., save to server)
+    // You can implement auto-save logic here
+  };
+
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
   };
 
   return (
     <div className="h-14 border-b bg-background flex items-center justify-between px-4">
+      {/* Left Section */}
       <div className="flex items-center gap-3">
         <Button variant="ghost" size="icon">
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className="h-5 w-5" />
         </Button>
-        <div className="flex items-center gap-2">
+        <div>
           {isEditing ? (
-            <input
-              type="text"
+            <TextField
               value={fileName}
               onChange={handleFileNameChange}
               onBlur={toggleEditMode}
-              className="text-sm font-medium border-b border-transparent focus:border-current focus:outline-none"
+              size="small"
+              variant="standard"
             />
           ) : (
-            <span className="text-sm font-medium" onClick={toggleEditMode}>
+            <span
+              style={{ fontSize: "16px", cursor: "pointer" }}
+              onClick={toggleEditMode}
+            >
               {fileName}
             </span>
           )}
         </div>
       </div>
 
+      {/* Right Section */}
       <div className="flex items-center gap-4">
+        {/* Auto Save Toggle */}
         <div className="flex items-center gap-2">
           <span className="text-sm text-muted-foreground">Auto Save</span>
-          <Switch checked={autoSave} onCheckedChange={handleAutoSaveToggle} />
+          <Switch checked={autoSave} onChange={handleAutoSaveToggle} />
         </div>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-              <Avatar className="h-8 w-8">
+        {/* User Profile Dropdown */}
+        <div>
+          <IconButton onClick={handleMenuOpen}>
+          <Avatar className="h-8 w-8">
                 <AvatarImage src="https://github.com/shadcn.png" alt="User" />
                 <AvatarFallback>JD</AvatarFallback>
               </Avatar>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56" align="end" forceMount>
-            <DropdownMenuLabel className="font-normal">
-              <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">John Doe</p>
-                <p className="text-xs leading-none text-muted-foreground">
+          </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+          >
+            <MenuItem>
+              <div style={{ display: "flex", flexDirection: "column", borderRadius:'20px', minWidth:'100px' }}>
+                <strong>John Doe</strong>
+                <span style={{ fontSize: "12px", color: "#888" }}>
                   john.doe@example.com
-                </p>
+                </span>
               </div>
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              Profile
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              Settings
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              Log out
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+            </MenuItem>
+            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Log Out</MenuItem>
+          </Menu>
+        </div>
       </div>
     </div>
   );
