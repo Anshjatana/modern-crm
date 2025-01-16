@@ -66,7 +66,3 @@ Ensure that you have the following installed:
 - **MUI (Material-UI)**: For certain UI components like dropdowns and buttons.
 - **Lucide Icons**: For displaying icons throughout the interface.
 - **TypeScript**: For type safety and improved developer experience.
-
-## License
-
-This project is licensed under the MIT License.
