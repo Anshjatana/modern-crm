@@ -1,81 +1,72 @@
-# Topbar Component
 
-This is a simple Topbar component built using React and Material UI (MUI). It allows users to edit the file name, toggle auto-save, and display a user profile dropdown.
+# Modern CRM - Next.js Project
+
+## Overview
+The Modern CRM project is a Customer Relationship Management system built with Next.js 14. It features a clean, responsive user interface with mobile support, using Tailwind CSS for styling and MUI components for certain UI elements. This application allows users to manage tasks, view CRM details, and perform other related activities.
 
 ## Features
+- **Responsive Design**: The application is fully responsive, using Tailwind CSS classes to adjust the layout across various screen sizes.
+- **Task Management**: Users can filter, sort, and manage tasks based on status, priority, and other criteria.
+- **Editable Tables**: The project includes editable tables for managing data, with inline editing for rows and headers.
+- **User Profile & Settings**: Users can manage their profile, settings, and preferences, with an avatar-based dropdown for user actions.
 
-- **File Name Editing:** The file name can be edited by clicking on it. It switches to a text field, allowing the user to update the name. The new file name is saved to `localStorage` and persists across page reloads.
-- **Auto Save Toggle:** The component includes a switch to toggle auto-save functionality. (Implementation can be added in the future.)
-- **User Profile Dropdown:** A user avatar is shown in the top-right corner. When clicked, a dropdown menu appears with options for the user profile, settings, and log out.
+## Project Structure
 
-## Installation
+The project is built using a modular approach, separating components into reusable elements:
 
-To use this component in your project, follow these steps:
+1. **RootLayout**: This component wraps the entire layout and contains the sidebar, topbar, and main content.
+2. **Sidebar**: A navigation component that includes buttons for layout control, user settings, and theme toggling.
+3. **Topbar**: Contains controls for file management, including the current file name, auto-save toggle, and user profile dropdown.
+4. **Header**: Manages the search functionality and other toolbar items such as filter, sort, and view options.
+5. **TableComponent**: Displays data in a table format with editable cells and headers. It supports search, filter, and sorting functionality.
+6. **UI Components**: The project uses several custom UI components like `Input`, `Button`, `Avatar`, etc., to maintain consistent styling across the app.
 
-### 1. Clone the Repository
+## Setup and Installation
 
-Clone this repository to your local machine:
-/Users/anshjatana/Documents/README.md
-```bash
-git clone https://github.com/your-username/your-repository.git
-cd your-repository
-```
+### Prerequisites
+Ensure that you have the following installed:
+- Node.js (v16+)
+- npm or yarn
 
-### 2. Install Dependencies
+### Installation Steps
 
-Install the necessary dependencies using npm or yarn:
+1. Clone the repository:
 
-```bash
-npm install
-# or
-yarn install
-```
+   ```bash
+   git clone https://github.com/yourusername/modern-crm.git
+   ```
 
-### 3. Start the Development Server
+2. Navigate into the project directory:
 
-To run the project in development mode, use:
+   ```bash
+   cd modern-crm
+   ```
 
-```bash
-npm start
-# or
-yarn start
-```
+3. Install dependencies:
 
-## Usage
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-You can import and use the `Topbar` component in your React project like so:
+4. Run the development server:
 
-```tsx
-import { Topbar } from './path/to/Topbar';
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-function App() {
-  return (
-    <div>
-      <Topbar />
-      {/* Other components */}
-    </div>
-  );
-}
-```
+   The application will be available at `http://localhost:3000`.
 
-### Component Breakdown
-
-#### `Topbar`
-- **State:**
-  - `fileName`: The name of the file, which can be edited by the user.
-  - `isEditing`: Determines whether the file name is being edited.
-  - `autoSave`: Tracks the state of the auto-save toggle.
-  - `anchorEl`: Controls the state of the profile dropdown menu.
-  
-- **Effect:**
-  - The file name is saved to `localStorage` every time it changes, ensuring persistence across page reloads.
-
-- **Functions:**
-  - `handleFileNameChange`: Updates the `fileName` state when the input changes.
-  - `toggleEditMode`: Toggles between edit and view modes for the file name.
-  - `handleAutoSaveToggle`: Handles the state change of the auto-save switch.
-  - `handleMenuOpen` and `handleMenuClose`: Manage the opening and closing of the user profile dropdown.
+## Technologies Used
+- **Next.js 14**: The React-based framework for building the application.
+- **Tailwind CSS**: A utility-first CSS framework for creating responsive, modern designs.
+- **MUI (Material-UI)**: For certain UI components like dropdowns and buttons.
+- **Lucide Icons**: For displaying icons throughout the interface.
+- **TypeScript**: For type safety and improved developer experience.
 
 ## License
 
-MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License.

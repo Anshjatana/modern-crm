@@ -8,6 +8,8 @@ import {
   Share2,
   Download,
   Trash2,
+  Rows3,
+  Columns3,
 } from "lucide-react";
 import { HeaderProps } from "@/lib/interface";
 
@@ -31,16 +33,11 @@ export const Header: React.FC<HeaderProps> = ({
         />
       </div>
       <Button variant="link" className="gap-2">
-        <div className="grid grid-cols-1 w-4 h-4 border border-current">
-          <div className="border-b border-current"></div>
-        </div>
+        <Rows3 />
         1/1 Row
       </Button>
       <Button variant="link" className="gap-2">
-        <div className="grid grid-cols-3 w-4 h-4 border border-current">
-          <div className="border-r border-current"></div>
-          <div className="border-r border-current"></div>
-        </div>
+        <Columns3 />
         3/3 Column
       </Button>
       <Button
