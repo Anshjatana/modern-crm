@@ -16,40 +16,45 @@ type DataRow = {
 
 const initialData: DataRow[] = [
   {
-    id: '1',
-    date: "Oct 12, 2024 at 14:08 PM",
-    action: "Bitscale Evaluation - Account relevancy",
-    enrichment: "Bitscale Evaluation - Account relevancy check",
-    status: "completed",
+    "id": "1",
+    "date": "Oct 12, 2024 at 14:08 PM",
+    "action": "Bitscale Evaluation - Account relevancy",
+    "enrichment": "Bitscale Evaluation - Account relevancy check",
+    "status": "completed",
+    "isoDate": "2024-10-12T14:08:00"
   },
   {
-    id: '2',
-    date: "Oct 13, 2024 at 15:20 PM",
-    action: "BMW Evaluation - Data processing",
-    enrichment: "BMW Evaluation - Relevancy check",
-    status: "error",
+    "id": "2",
+    "date": "Oct 13, 2024 at 15:20 PM",
+    "action": "BMW Evaluation - Data processing",
+    "enrichment": "BMW Evaluation - Relevancy check",
+    "status": "error",
+    "isoDate": "2024-10-13T15:20:00"
   },
   {
-    id: '3',
-    date: "Oct 14, 2024 at 16:30 PM",
-    action: "Google Analysis",
-    enrichment: "Google Evaluation - Lilevancy check",
-    status: "processing",
+    "id": "3",
+    "date": "Oct 14, 2024 at 16:30 PM",
+    "action": "Google Analysis",
+    "enrichment": "Google Evaluation - Lilevancy check",
+    "status": "processing",
+    "isoDate": "2024-10-14T16:30:00"
   },
   {
-    id: '4',
-    date: "Oct 15, 2024 at 10:10 AM",
-    action: "Apple Data Processing",
-    enrichment: "Apple Evaluation - Olvancy check",
-    status: "completed",
+    "id": "4",
+    "date": "Oct 15, 2024 at 10:10 AM",
+    "action": "Apple Data Processing",
+    "enrichment": "Apple Evaluation - Olvancy check",
+    "status": "completed",
+    "isoDate": "2024-10-15T10:10:00"
   },
   {
-    id: '5',
-    date: "Oct 16, 2024 at 12:45 PM",
-    action: "Figma Analysis",
-    enrichment: "Figma Evaluation - Evancy check",
-    status: "processing",
-  },
+    "id": "5",
+    "date": "Oct 16, 2024 at 12:45 PM",
+    "action": "Figma Analysis",
+    "enrichment": "Figma Evaluation - Evancy check",
+    "status": "processing",
+    "isoDate": "2024-10-16T12:45:00"
+  }
 ];
 
 export default function Home() {
@@ -76,10 +81,28 @@ export default function Home() {
     if (storedColumns) setColumns(JSON.parse(storedColumns));
   }, []);
 
+   // Function to generate formatted date
+   const getFormattedDate = () => {
+    const date = new Date();
+    return new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    })
+      .format(date)
+      .replace(",", "")
+      .replace("AM", "AM")
+      .replace("PM", "PM")
+  };
+
   const handleAddRow = () => {
     const newRow: DataRow = {
       id: (data.length + 1).toString(),
-      date: new Date().toLocaleString(),
+      date: getFormattedDate(),
+      isoDate: new Date().toISOString(),
       action: "New Action",
       enrichment: "New Enrichment",
       status: "processing",
@@ -102,14 +125,15 @@ export default function Home() {
 
   const handleSortByDate = () => {
     const sortedData = [...data].sort((a, b) => {
-      const dateA = new Date(a.date).getTime();
-      const dateB = new Date(b.date).getTime();
+      const dateA = new Date(a.isoDate).getTime();
+      const dateB = new Date(b.isoDate).getTime();
       return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
     });
+  
     setData(sortedData);
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-    localStorage.setItem("data", JSON.stringify(sortedData));
-  };
+  }; 
+  
 
   const handleCellEdit = (rowId: string, columnKey: string, value: string) => {
     const updatedData = data.map((row) =>

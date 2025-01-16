@@ -1,7 +1,15 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Filter, SortAsc, Sparkles, Share2, Download, Trash2 } from "lucide-react";
-import { HeaderProps } from '@/lib/interface'
+import {
+  Search,
+  Filter,
+  SortAsc,
+  Sparkles,
+  Share2,
+  Download,
+  Trash2,
+} from "lucide-react";
+import { HeaderProps } from "@/lib/interface";
 
 export const Header: React.FC<HeaderProps> = ({
   searchTerm,
@@ -22,29 +30,47 @@ export const Header: React.FC<HeaderProps> = ({
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
+      <Button variant="link" className="gap-2">
+        <div className="grid grid-cols-1 w-4 h-4 border border-current">
+          <div className="border-b border-current"></div>
+        </div>
+        1/1 Row
+      </Button>
+      <Button variant="link" className="gap-2">
+        <div className="grid grid-cols-3 w-4 h-4 border border-current">
+          <div className="border-r border-current"></div>
+          <div className="border-r border-current"></div>
+        </div>
+        3/3 Column
+      </Button>
       <Button
         variant="secondary"
-        onClick={() => setStatusFilter(statusFilter === "all" ? "completed" : "all")}
+        onClick={() =>
+          setStatusFilter(statusFilter === "all" ? "completed" : "all")
+        }
       >
         <Filter className="h-4 w-4" /> Filter
       </Button>
       <Button variant="secondary" onClick={handleSortByDate}>
-        <SortAsc className={`h-4 w-4 ${sortOrder === "asc" ? "rotate-180" : ""}`} /> Sort
+        <SortAsc
+          className={`h-4 w-4 ${sortOrder === "asc" ? "rotate-180" : ""}`}
+        />{" "}
+        Sort
       </Button>
     </div>
     <div className="flex items-center gap-2">
-          <Button size="default">
-            Enrich <Sparkles className="h-4 ml-1 w-4" />
-          </Button>
-          <Button variant="secondary" size="icon">
-          <Share2 className="h-4 w-4" />
-          </Button>
-          <Button variant="secondary" size="icon">
-            <Download className="h-4 w-4" />
-          </Button>
-          <Button variant="secondary" size="icon">
-            <Trash2 color="red" className="h-4 w-4" />
-          </Button>
-        </div>
-      </div>
+      <Button size="default">
+        Enrich <Sparkles className="h-4 ml-1 w-4" />
+      </Button>
+      <Button variant="secondary" size="icon">
+        <Share2 className="h-4 w-4" />
+      </Button>
+      <Button variant="secondary" size="icon">
+        <Download className="h-4 w-4" />
+      </Button>
+      <Button variant="secondary" size="icon">
+        <Trash2 color="red" className="h-4 w-4" />
+      </Button>
+    </div>
+  </div>
 );

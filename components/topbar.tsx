@@ -1,18 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
-import { AvatarGroup, IconButton, Menu, MenuItem, Switch, TextField } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { IconButton, Menu, MenuItem, Switch, TextField } from "@mui/material";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export function Topbar() {
-  const [fileName, setFileName] = useState("Name of the file");
+  const [fileName, setFileName] = useState<string>("CRM Dashboard");
   const [isEditing, setIsEditing] = useState(false);
   const [autoSave, setAutoSave] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleFileNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
     setFileName(e.target.value);
   };
 
@@ -32,6 +32,17 @@ export function Topbar() {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    localStorage.setItem("fileName", fileName);
+  }, [fileName]);
+
+  useEffect(() => {
+    const fileName = localStorage.getItem("fileName");
+    if (fileName) {
+      setFileName(fileName);
+    }
+  },[]);
 
   return (
     <div className="h-14 border-b bg-background flex items-center justify-between px-4">
